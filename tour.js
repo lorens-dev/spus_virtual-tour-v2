@@ -1,4 +1,8 @@
-var myTour = pannellum.viewer('panorama', {
+function resolveAssetUrl(path) {
+    return new URL(path, document.baseURI).href;
+}
+
+const tourConfig = {
     "default": {
         "firstScene": "sceneZero",
         "author": "ICT ",
@@ -2110,7 +2114,15 @@ var myTour = pannellum.viewer('panorama', {
     }
 
     
+};
+
+Object.values(tourConfig.scenes).forEach(function (scene) {
+    if (scene.panorama) {
+        scene.panorama = resolveAssetUrl(scene.panorama);
+    }
 });
+
+var myTour = pannellum.viewer('panorama', tourConfig);
 
 
 
