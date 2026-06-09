@@ -1,8 +1,8 @@
-function resolveAssetUrl(path) {
+export function resolveAssetUrl(path) {
     return new URL(path, document.baseURI).href;
 }
 
-const tourConfig = {
+export const tourConfig = {
     "default": {
         "firstScene": "sceneZero",
         "author": "ICT ",
@@ -2122,6 +2122,7 @@ Object.values(tourConfig.scenes).forEach(function (scene) {
     }
 });
 
+if (false) {
 var myTour = pannellum.viewer('panorama', tourConfig);
 
 
@@ -2174,6 +2175,7 @@ exploreBtn.addEventListener('click', function() {
 });
 
 
+}
 
 // Function to generate the HTML for the animated callout
 function createCustomLabel(hotSpotDiv, args) {

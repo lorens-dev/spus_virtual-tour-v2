@@ -3,21 +3,24 @@ setlocal
 
 cd /d "%~dp0"
 
-where py >nul 2>nul
-if %errorlevel%==0 (
-    start "SPUS Virtual Tour Server" py -m http.server 8080
-) else (
-    where python >nul 2>nul
-    if %errorlevel%==0 (
-        start "SPUS Virtual Tour Server" python -m http.server 8080
-    ) else (
-        echo Python was not found on this computer.
-        echo Install Python or open the project with VS Code Live Server.
+where npm >nul 2>nul
+if %errorlevel% neq 0 (
+    echo Node.js and npm are required for the React version of this project.
+    pause
+    exit /b 1
+)
+
+if not exist node_modules (
+    echo Installing dependencies...
+    call npm install
+    if %errorlevel% neq 0 (
+        echo npm install failed.
         pause
         exit /b 1
     )
 )
 
-timeout /t 2 /nobreak >nul
-start "" http://localhost:8080/
+start "SPUS Virtual Tour Dev Server" cmd /c "npm run dev"
 
+timeout /t 5 /nobreak >nul
+start "" http://localhost:5173/
